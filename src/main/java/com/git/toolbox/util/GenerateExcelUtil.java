@@ -22,7 +22,7 @@ public class GenerateExcelUtil {
 
     public static void main(String[] args) throws IOException {
         List<String> title = Collections.singletonList("test");
-        ImmutableMap<String, List> map = ImmutableMap.<String, List> builder()
+        ImmutableMap<String, List> map = ImmutableMap.<String, List>builder()
                 .put("姓名", ImmutableList.builder().add("张安").add("盘安").add("立安").build())
                 .put("年龄", ImmutableList.builder().add(11).add(13).add(17).build())
                 .build();
@@ -34,9 +34,9 @@ public class GenerateExcelUtil {
     public static HSSFWorkbook generateExcel(String title, Map<String, List> excelMap) {
 
         List<String> rowList = new ArrayList<>();
-
         List<List> colList = new ArrayList<>();
 
+        // 由于写入excel时，需要逐行写入；但是逻辑逐列写入较为方便，这里需要行列转换一下
         for (Map.Entry<String, List> entry : excelMap.entrySet()) {
             String key = entry.getKey();
             rowList.add(key);
@@ -47,7 +47,7 @@ public class GenerateExcelUtil {
         List<List> transferList = new ArrayList<>(rowList.size());
 
         int loop = 0;
-        //System.out.println(rowList.size());
+        // 矩阵转换
         while (loop <= rowList.size()) {
             List<Object> middleList = new ArrayList<>();
             for (List list : colList) {
@@ -92,6 +92,7 @@ public class GenerateExcelUtil {
             cellRowName.setCellStyle(columnTopStyle);                        //设置列头单元格样式
         }
 
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         //将查询出的数据设置到sheet对应的单元格中
         for (int i = 0; i < colList.size(); i++) {
 
@@ -103,7 +104,6 @@ public class GenerateExcelUtil {
                 if (StringUtils.isNotEmpty(obj.get(j).toString())) {
                     if (obj.get(j) instanceof Date) {
                         Date currentTime = new Date();
-                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                         String dateString = formatter.format(currentTime);
                         cell.setCellValue(dateString);
                     } else {
