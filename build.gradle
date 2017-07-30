@@ -1,0 +1,215 @@
+import java.text.SimpleDateFormat
+
+group 'com.git'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply from: 'dependency.gradle'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+buildscript {
+
+    repositories {
+
+        mavenLocal()
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+        maven { url "https://repo.spring.io/libs-release" }
+        mavenCentral()
+        maven { url "http://jcenter.bintray.com" }
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE")
+        classpath("io.spring.gradle:dependency-management-plugin:0.6.1.RELEASE")
+        classpath "com.github.jengelman.gradle.plugins:shadow:1.2.3"
+    }
+}
+
+ext {
+
+    project_group = group
+    project_jdk = '1.8'
+    /** 生成 manifest 的方法，在打 jar 包或者 war 包时候调用 */
+    defaultManifest = { proj ->
+
+        return manifest {
+            def buildTimeAndDate = new Date()
+            def buildDate = new SimpleDateFormat('yyyy-MM-dd').format(buildTimeAndDate)
+            def buildTime = new SimpleDateFormat('HH:mm').format(buildTimeAndDate)
+
+            attributes 'Built-By': System.properties['user.name']
+            attributes 'Created-By': System.properties['java.version'] + " (" + System.properties['java.vendor'] + " " + System.getProperty("java.vm.version") + ")"
+            attributes 'Build-Host': InetAddress.localHost.hostName
+            attributes 'Build-Date': buildDate
+            attributes 'Build-Time': buildTime
+            attributes 'Timestamp': String.valueOf(System.currentTimeMillis())
+            attributes 'Specification-Title': proj.archivesBaseName
+            attributes 'Specification-Version': proj.version
+            attributes 'Specification-Vendor': project_group
+            attributes 'Implementation-Title': proj.archivesBaseName
+            attributes 'Implementation-Version': proj.version
+            attributes 'Implementation-Vendor': project_group
+            attributes 'provider': 'gradle'
+        }
+    }
+
+
+}
+
+
+repositories {
+    //mavenLocal()
+    maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+    jcenter()
+    maven { url "https://repo.spring.io/libs-release" }
+    mavenCentral()
+
+}
+
+tasks.withType(JavaCompile) { options.encoding = 'UTF-8' }
+
+configurations {
+
+    // 所有需要忽略的包定义在此
+    //使用jcl-over-slf4j桥接到logback,排除commons-logging
+    all*.exclude group: 'commons-logging'
+
+    //使用log4j-over-slf4j桥接到logback,排除log4j
+    all*.exclude group: 'org.apache.logging.log4j'
+
+    //使用jul-to-slf4j桥接到logback,但jul是jdk自带，无法排除
+}
+// 编码改为 UTF-8
+[compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+
+// 打包时需要通过-Dprofile指定是pro环境，以便排除配置文件暴露隐私信息
+def env = System.getProperty("profile") ?: "dev"
+
+// 拷贝*.properties文件到conf下
+task initConfig(type: Copy) {
+    from "src/main/env/$env/"
+    into "build/resources/main/config/"
+}
+
+jar {
+    //排除配置文件以进行外置配置
+    println "profile:$env"
+    if (env.equals("pro")) {
+        excludes = ['config/*.properties', 'logback.xml']
+    }
+
+    doFirst {
+        // 生成jar 包的时候按此规则生成 manifest 文件
+        manifest = defaultManifest({ project })
+    }
+}
+
+jar.dependsOn initConfig
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from 'build/docs/javadoc'
+    doFirst {
+        manifest = defaultManifest({ subproj })
+    }
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+    doFirst {
+        manifest = defaultManifest({ subproj })
+    }
+}
+
+// 显示当前项目下所有用于 compile 的 jar.
+task listJars(description: 'Display all compile jars.') {
+    doLast {
+        configurations.compile.each { File file -> println file.name }
+    }
+
+}
+//拷贝依赖jar
+task copyJars(type: Copy) {
+    from configurations.runtime
+    into 'build/complieJars' // 目标位置
+}
+
+artifacts {
+    archives jar
+    // archives javadocJar
+    archives sourcesJar
+}
+
+springBoot { mainClass = "com.git.toolbox.Servermain" }
+
+// 导入需要依赖
+dependencies {
+    compile(
+            libraries.'httpclient',
+            libraries.'httpmime',
+            libraries.'swagger2',
+            libraries.'swagger-ui',
+            libraries.'joda-time',
+            libraries.'jjwt',
+            libraries.'spring-boot-redis',
+            libraries.'redis-client-jedis',
+            libraries.'spring-boot-jdbc',
+            libraries.'druid',
+            libraries.'mysql-connector',
+            libraries.'fastjson',
+            libraries.'slf4j-api',
+            // libraries.'slf4j-log4j12',
+            libraries.'log4j-over-slf4j',
+            libraries.'logback-classic',
+            libraries.'jul-to-slf4j',
+            libraries.'jcl-over-slf4j',
+            libraries.'logback-access',
+            libraries.'shiro-spring',
+            libraries.'shiro-ehcache',
+            libraries.'shiro-quartz',
+            libraries.'aspectjrt',
+            libraries.'aspectjweaver',
+            libraries.'commons-collections',
+            libraries.'commons-codec',
+            libraries.'commons-configuration',
+            libraries.'commons-fileupload',
+            libraries.'commons-lang3',
+            libraries.'commons-discovery',
+            libraries.'guava',
+            libraries.'spring-boot-amqp-starter',
+            libraries.'spring-boot-websocket-starter',
+            libraries.'spring-cloud-starter-eureka',
+            libraries.'freemarker',
+            libraries.'poi',
+    )
+
+    // 以下的依赖由于自身依赖与现有的重复(mybatis、logback)，需要单独处理
+    compile(libraries.'spring-boot-starter')
+            { exclude group: 'ch.qos.logback' }
+
+    compile(libraries.'tk-mybatis-mapper-spring-boot-starter')
+            { exclude group: 'org.springframework.boot' }
+
+    compile(libraries.'mybatis-spring-boot-starter')
+            { exclude group: 'org.springframework.boot' }
+    compile(libraries.'tk-mybatis-pagehelper-spring-boot-starter')
+            { exclude group: 'org.springframework.boot' }
+    compile(libraries.'spring-boot-web')
+            { exclude group: 'ch.qos.logback' }
+
+    // 引入根目录和各子项目下的libs中的jar包
+    ext.jarTree = fileTree(dir: 'libs', include: '**/*.jar')
+    ext.rootProjectLibs = new File(rootProject.rootDir, 'libs').getAbsolutePath()
+    ext.jarTree += fileTree(dir: rootProjectLibs, include: '**/*.jar')
+    compile jarTree
+    testCompile(
+            libraries.'junit',
+            // libraries.'spring-test',
+            libraries.'spring-boot-test',
+            libraries.'mybatis-generator-core',
+            libraries.'tomcat-websocket',
+    )
+}
