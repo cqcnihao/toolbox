@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">  
+	<contextName>shiro-cms</contextName>       
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">   
+	    <!-- encoder 默认配置为PatternLayoutEncoder -->   	    
+	    <encoder>   
+	      <pattern>%date{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-4relative %-5level %logger[%L] - %msg%n</pattern>  
+	    </encoder>   
+  </appender> 
+
+
+  <appender name="SystemAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">   
+      <file>./logs/SC358_survey_10.130.207.162_8080.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">   
+      <fileNamePattern>./logs/avatar_survey%d{yyyyMMdd}_%i.log</fileNamePattern>
+      <!-- <maxHistory>30</maxHistory> -->    <!-- 日志保留天数  -->
+      <timeBasedFileNamingAndTriggeringPolicy  
+              class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">  
+          <!-- or whenever the file size reaches 100MB -->  
+         <maxFileSize>5kB</maxFileSize>  
+       </timeBasedFileNamingAndTriggeringPolicy>
+    </rollingPolicy>   
+    <encoder>   
+       <pattern>%date{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-4relative %-5level %logger[%L] - %msg%n</pattern> 
+    </encoder>  
+  </appender> 
+
+
+	<logger name="com.git" level="info">
+		<appender-ref ref="SystemAppender" />		
+	</logger>
+
+	
+	<root level="info">             
+    	 <appender-ref ref="STDOUT" />  
+	</root>
+
+</configuration>  
