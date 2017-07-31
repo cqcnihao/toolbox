@@ -184,6 +184,7 @@ dependencies {
             libraries.'spring-cloud-starter-eureka',
             libraries.'freemarker',
             libraries.'poi',
+            libraries.'javaxMail'
     )
 
     // 以下的依赖由于自身依赖与现有的重复(mybatis、logback)，需要单独处理
