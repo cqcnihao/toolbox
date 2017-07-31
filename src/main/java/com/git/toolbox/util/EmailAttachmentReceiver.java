@@ -76,7 +76,6 @@ public class EmailAttachmentReceiver {
 
                 Instant end = LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant();
                 Instant start = LocalDate.now().minusDays(1).atStartOfDay(ZoneId.systemDefault()).toInstant();
-                if (now.before(Date.from(end)) && now.after(Date.from(start))) {
 
 
                     String contentType = message.getContentType();
@@ -112,7 +111,6 @@ public class EmailAttachmentReceiver {
                         if (content != null) {
                             messageContent = content.toString();
                         }
-                    }
 
                     // print out details of each message
 //                System.out.println("Message #" + (i + 1) + ":");
@@ -142,30 +140,30 @@ public class EmailAttachmentReceiver {
      * Runs this program with Gmail POP3 server
      */
     public static void main(String[] args) {
-//        String host = "imap.exmail.qq.com";
-//        String port = "993";
-//        String userName = "panbenxing@feellike21.com";
-//        String password = "secret";
-//
-//        String saveDirectory = "D:\\Attachment";
-//
-//        EmailAttachmentReceiver receiver = new EmailAttachmentReceiver();
-//        receiver.setSaveDirectory(saveDirectory);
-//        receiver.downloadEmailAttachments(host, port, userName, password);
+        String host = "imap.exmail.qq.com";
+        String port = "993";
+        String userName = "panbenxing@feellike21.com";
+        String password = "Kiz2NJk6BjAn4KHk";
+
+        String saveDirectory = "D:\\Attachment";
+
+        EmailAttachmentReceiver receiver = new EmailAttachmentReceiver();
+        receiver.setSaveDirectory(saveDirectory);
+        receiver.downloadEmailAttachments(host, port, userName, password);
 
 //        Date date = new Date("Wed Jul 26 11:15:13 CST 2017");
 //        Date date1 = new Date();
 //        boolean after = date1.after(date);
 //        System.out.println(after);
 //        System.out.println(date);
-        Instant end = LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant();
-        Instant start = LocalDate.now().minusDays(1).atStartOfDay(ZoneId.systemDefault()).toInstant();
-        Date date = new Date("Sun Jul 30 11:15:13 CST 2017");
-        if (date.before(Date.from(end)) && date.after(Date.from(start))) {
-            System.out.println("sdfsdfsf");
-        }
-        System.out.println(new Date());
-        System.out.println((Date.from(end)));
-        System.out.println((Date.from(start)));
+//        Instant end = LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant();
+//        Instant start = LocalDate.now().minusDays(1).atStartOfDay(ZoneId.systemDefault()).toInstant();
+//        Date date = new Date("Sun Jul 30 11:15:13 CST 2017");
+//        if (date.before(Date.from(end)) && date.after(Date.from(start))) {
+//            System.out.println("sdfsdfsf");
+//        }
+//        System.out.println(new Date());
+//        System.out.println((Date.from(end)));
+//        System.out.println((Date.from(start)));
     }
 }
