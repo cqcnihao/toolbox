@@ -21,9 +21,6 @@ public class EmailEmitUtil {
 
     private static Logger logger = LoggerFactory.getLogger(EmailEmitUtil.class);
 
-    @Value("${mail.to}")
-    private String mailTo;
-
     @Value("${spring.mail.username}")
     private String userName;
 
