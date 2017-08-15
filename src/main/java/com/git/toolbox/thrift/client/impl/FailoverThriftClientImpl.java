@@ -64,9 +64,6 @@ public class FailoverThriftClientImpl implements ThriftClient {
         return thriftClient.iface(ifaceClass);
     }
 
-    /* (non-Javadoc)
-     * @see com.github.phantomthief.thrift.client.ThriftClient#iface(java.lang.Class)
-     */
 
     /** {@inheritDoc} */
     @Override
@@ -74,9 +71,6 @@ public class FailoverThriftClientImpl implements ThriftClient {
         return thriftClient.iface(ifaceClass, hash);
     }
 
-    /* (non-Javadoc)
-     * @see com.github.phantomthief.thrift.client.ThriftClient#iface(java.lang.Class, int)
-     */
 
     /** {@inheritDoc} */
     @Override
@@ -104,9 +98,6 @@ public class FailoverThriftClientImpl implements ThriftClient {
         return thriftClient.mpiface(ifaceClass, serviceName, protocolProvider, hash);
     }
 
-    /* (non-Javadoc)
-     * @see com.github.phantomthief.thrift.client.ThriftClient#iface(java.lang.Class, java.util.function.Function, int)
-     */
 
     private class FailoverStategy implements
                                  Supplier<List<ThriftServerInfo>>,
@@ -136,25 +127,16 @@ public class FailoverThriftClientImpl implements ThriftClient {
                     .filter(i -> !failedServers.contains(i)).collect(toList());
         }
 
-        /* (non-Javadoc)
-         * @see com.github.phantomthief.thrift.client.pool.ThriftConnectionPoolProvider#getConnection(com.github.phantomthief.thrift.client.pool.ThriftServerInfo)
-         */
         @Override
         public TTransport getConnection(ThriftServerInfo thriftServerInfo) {
             return connectionPoolProvider.getConnection(thriftServerInfo);
         }
 
-        /* (non-Javadoc)
-         * @see com.github.phantomthief.thrift.client.pool.ThriftConnectionPoolProvider#returnConnection(com.github.phantomthief.thrift.client.pool.ThriftServerInfo, org.apache.thrift.transport.TTransport)
-         */
         @Override
         public void returnConnection(ThriftServerInfo thriftServerInfo, TTransport transport) {
             connectionPoolProvider.returnConnection(thriftServerInfo, transport);
         }
 
-        /* (non-Javadoc)
-         * @see com.github.phantomthief.thrift.client.pool.ThriftConnectionPoolProvider#returnBrokenConnection(com.github.phantomthief.thrift.client.pool.ThriftServerInfo, org.apache.thrift.transport.TTransport)
-         */
         @Override
         public void returnBrokenConnection(ThriftServerInfo thriftServerInfo, TTransport transport) {
             failoverCheckingStrategy.fail(thriftServerInfo);
