@@ -6,6 +6,7 @@ version '1.0-SNAPSHOT'
 apply plugin: 'java'
 apply from: 'dependency.gradle'
 apply plugin: 'eclipse'
+apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 
 buildscript {
@@ -24,6 +25,7 @@ buildscript {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE")
         classpath("io.spring.gradle:dependency-management-plugin:0.6.1.RELEASE")
         classpath "com.github.jengelman.gradle.plugins:shadow:1.2.3"
+        classpath "co.tomlee.gradle.plugins:gradle-thrift-plugin:0.0.6"
     }
 }
 
@@ -184,7 +186,9 @@ dependencies {
             libraries.'spring-cloud-starter-eureka',
             libraries.'freemarker',
             libraries.'poi',
-            libraries.'javaxMail'
+            libraries.'javaxMail',
+            libraries.'thrift',
+            libraries.'javassist'
     )
 
     // 以下的依赖由于自身依赖与现有的重复(mybatis、logback)，需要单独处理
@@ -214,3 +218,4 @@ dependencies {
             libraries.'tomcat-websocket',
     )
 }
+
