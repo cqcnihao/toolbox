@@ -64,8 +64,8 @@ ext.versions = [
 		freemarker:'2.3.23',
 		javaxMail:'1.5.6',
 		thrift:'0.10.0',
-		javassist:'3.20.0-GA'
-
+		javassist:'3.20.0-GA',
+		websocket:'1.3.0'
 
 
 
@@ -191,5 +191,6 @@ ext.libraries = [
 		"freemarker":"org.freemarker:freemarker:${versions.freemarker}",
 		"javaxMail":"com.sun.mail:javax.mail:${versions.javaxMail}",
 		"thrift":"org.apache.thrift:libthrift:${versions.thrift}",
-		"javassist":"org.javassist:javassist:${versions.javassist}"
+		"javassist":"org.javassist:javassist:${versions.javassist}",
+		"websocket":"org.java-websocket:Java-WebSocket:${versions.websocket}"
 ]
