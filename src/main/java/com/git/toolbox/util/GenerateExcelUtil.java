@@ -2,7 +2,6 @@ package com.git.toolbox.util;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableSortedMap;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.hssf.util.HSSFColor;
@@ -23,11 +22,16 @@ public class GenerateExcelUtil {
     public static void main(String[] args) throws IOException {
         List<String> title = Collections.singletonList("test");
         ImmutableMap<String, List> map = ImmutableMap.<String, List>builder()
-                .put("姓名", ImmutableList.builder().add("张安").add("盘安").add("立安").build())
-                .put("年龄", ImmutableList.builder().add(11).add(13).add(17).build())
+                .put("姓名", ImmutableList.builder().add("驱蚊器柔柔弱弱").add("啊啊啊时代")
+                        .add("啊啊啊时代").add("啊啊啊时代").add("啊啊啊时代")
+                        .add("阿萨德").add("企鹅").add("企鹅").add("企鹅")
+                        .build())
+                .put("部门", ImmutableList.builder().add("  ").add("  ")
+                        .add("  ").add("  ").add("  ")
+                        .add("undefined").add("  ").add("  ").add("  ")
+                        .build())
                 .build();
         HSSFWorkbook testExcel = generateExcel("testExcel", map);
-
         testExcel.write(new FileOutputStream("D:\\testExcel.xls"));
     }
 
@@ -48,7 +52,8 @@ public class GenerateExcelUtil {
 
         int loop = 0;
         // 矩阵转换
-        while (loop <= rowList.size()) {
+        int size = colList.get(0).size();
+        while (loop <= size) {
             List<Object> middleList = new ArrayList<>();
             for (List list : colList) {
                 for (int i = loop; i < list.size(); i++) {
@@ -61,9 +66,7 @@ public class GenerateExcelUtil {
             loop++;
         }
 
-
         colList = transferList;
-
 
         HSSFWorkbook workbook = new HSSFWorkbook();                        // 创建工作簿对象
         HSSFSheet sheet = workbook.createSheet(title);                    // 创建工作表
