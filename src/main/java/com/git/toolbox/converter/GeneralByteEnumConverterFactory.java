@@ -1,6 +1,6 @@
 package com.git.toolbox.converter;
 
-import com.git.toolbox.status.BaseByteEnum;
+import com.git.toolbox.util.BaseByteEnum;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.convert.converter.ConverterFactory;
 
