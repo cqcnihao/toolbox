@@ -16,7 +16,7 @@ public class ConsumerTest {
      * @param consumer
      * @return
      */
-    public static Map<String, Integer> apply(Consumer<Map<String, Integer>> consumer, String requestParams) {
+    public static Map<String, Integer> apply(Consumer<Map<String, Integer>> consumer, String... requestParams) {
 
         // 拼接请求参数requestParams...
         Map<String, Integer> map = new HashMap<>();
@@ -33,7 +33,7 @@ public class ConsumerTest {
 
     public static void main(String[] args) {
 
-        Map<String, Integer> c = apply(map -> map.put("c", 3), null);
+        Map<String, Integer> c = apply(map -> map.put("c", 3));
         for (Map.Entry<String, Integer> entry : c.entrySet()) {
             System.out.println(entry.getKey() + "\t" + entry.getValue());
         }
