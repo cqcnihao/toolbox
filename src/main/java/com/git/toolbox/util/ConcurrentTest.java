@@ -62,8 +62,8 @@ public class ConcurrentTest {
          *
          * 所以为了是ABCD读取到的邀请码状态是准确的 ， 将邀请码的状态计入一个公共的服务器上的Redis中；
          *
-         * 读取内存中InviteCode的状态也是不对的，因为多实例的状态下，各个实力的内存又不共享；所以还是计入
-         * Redis中
+         * 读取内存中InviteCode的状态也是不对的，因为多实例的状态下或者多个Http请求但是每个都不是同时访问，实例之间的内存不共享、
+         * 各自请求的进程内存也不共享；所以还是将抢夺资源的状态计入Redis中
          */
         if (inviteCode.getStatus() == 0) {
             try {
