@@ -9,6 +9,9 @@ package com.git.toolbox.framework.flyweight;
  * <p>
  * <p>
  * 或者你也可以看看Integer的valueOf方法~
+ * 可以看到Integer的静态内部类IntegerCache使用静态代码块将-128~127的Integer对象都创建好了，所以
+ * 当比较两个-128到127的int装箱对象时，他俩的hash值是一样的，，，如果想将Integer的缓存范围调整大些，
+ * 可以指定java.lang.Integer.IntegerCache.high
  */
 public class App {
 
