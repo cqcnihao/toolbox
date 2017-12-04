@@ -31,8 +31,8 @@
         </commentGenerator>
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://192.168.1.20:3306/question_bank" userId="root"
-                        password="Admin@123"/>
+                        connectionURL="" userId="XXX"
+                        password="XXX"/>
 
         <javaTypeResolver>
             <!-- This property is used to specify whether MyBatis Generator should
@@ -42,10 +42,9 @@
         </javaTypeResolver>
 
         <!-- E:\workspace\eis\eis-server\eis-common\src\main\java -->    <!-- D:\java\workspace\enetic\eis\eis-common\src\main\java -->        <!-- E:\develop\workspace\eis\eis-common\src\main\java -->
-        <javaModelGenerator targetPackage="com.survey.entity"
-                            targetProject="D:\pbx\workspace\avatar_survey\src\main\java">
+        <javaModelGenerator targetPackage="com.git.toolbox.entity"
+                            targetProject=".\src\main\java">
 
-            <!-- D:\pbx\workspace\avatar_survey\src\main -->
 
             <!-- This property is used to select whether MyBatis Generator will generate
                 different Java packages for the objects based on the catalog and schema of
@@ -59,8 +58,7 @@
 
         <!-- E:\workspace\eis\eis-server\eis-common\src\main\resources -->
         <sqlMapGenerator targetPackage="config.mapper"
-                         targetProject="D:\pbx\workspace\avatar_survey\src\main\resources">
-            <!--D:\pbx\workspace\avatar_survey\src\main-->
+                         targetProject=".\src\main\resources">
             <!-- This property is used to select whether MyBatis Generator will generate
                 different Java packages for the objects based on the catalog and schema of
                 the introspected table -->
@@ -68,9 +66,8 @@
         </sqlMapGenerator>
 
         <!-- E:\workspace\eis\eis-server\eis-common\src\main\java -->
-        <javaClientGenerator targetPackage="com.survey.dao.mapper"
-                             targetProject="D:\pbx\workspace\avatar_survey\src\main\java" type="XMLMAPPER">
-            <!--D:\pbx\workspace\avatar_survey\src\main-->
+        <javaClientGenerator targetPackage="com.git.toolbox.mapper"
+                             targetProject=".\src\main\java" type="XMLMAPPER">
             <!-- This property is used to select whether MyBatis Generator will generate
                 different Java packages for the objects based on the catalog and schema of
                 the introspected table -->
