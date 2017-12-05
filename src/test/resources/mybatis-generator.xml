@@ -13,7 +13,8 @@
         <property name="endingDelimiter" value="`"/>
 
         <property name="mergeable" value="true"></property>
-
+        <!-- 生成的Java文件的编码 -->
+        <property name="javaFileEncoding" value="UTF-8"/>
         <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
             <property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>
             <!-- caseSensitive默认false，当数据库表名区分大小写时，可以将该属性设置为true -->
@@ -31,8 +32,8 @@
         </commentGenerator>
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="" userId="XXX"
-                        password="XXX"/>
+                        connectionURL="XX" userId="XX"
+                        password="XX@XX"/>
 
         <javaTypeResolver>
             <!-- This property is used to specify whether MyBatis Generator should
