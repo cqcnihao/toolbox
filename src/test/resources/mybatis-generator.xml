@@ -32,8 +32,8 @@
         </commentGenerator>
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="XX" userId="XX"
-                        password="XX@XX"/>
+                        connectionURL="jdbc:mysql://192.168.1.20:3306/question_bank" userId="root"
+                        password="Admin@123"/>
 
         <javaTypeResolver>
             <!-- This property is used to specify whether MyBatis Generator should
