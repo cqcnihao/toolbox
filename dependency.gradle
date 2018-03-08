@@ -68,7 +68,7 @@ ext.versions = [
 		websocket:'1.3.0',
 		mybatis_generator_core:'1.3.3',
 		mybatis_generator_maven_plugin:'1.3.2',
-
+		pdfbox:'2.0.6'
 
 
 
@@ -195,5 +195,6 @@ ext.libraries = [
 		"javassist":"org.javassist:javassist:${versions.javassist}",
 		"websocket":"org.java-websocket:Java-WebSocket:${versions.websocket}",
 		"mybatis-generator-core":"org.mybatis.generator:mybatis-generator-core:${versions.mybatis_generator_core}",
+		"pdfbox":"org.apache.pdfbox:pdfbox:${versions.pdfbox}",
 		"mybatis-generator-maven-plugin":"org.mybatis.generator:mybatis-generator-core:${versions.mybatis_generator_maven_plugin}",
 ]

@@ -202,6 +202,7 @@ dependencies {
             libraries.'javassist',
             libraries.'websocket',
             libraries.'mybatis-generator-core',
+            libraries.'pdfbox',
             libraries.'mybatis-generator-maven-plugin',
     )
 
