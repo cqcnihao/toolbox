@@ -9,8 +9,10 @@ import java.util.*;
 public class RescursiveTest {
 
 
-    private static List list = Arrays.asList("人", 1, 2, 3, 4, "汉", 5, 6, 7, 8, "钋", 9, 10, 11,"人1",12);
-    private static List<String> futures = Arrays.asList("人", "钋", "汉","人1");
+    private static List list = Arrays.asList("人", 1, 2, 3, 4, "汉", 5, 6, 7, 8, "钋", 9, 10, 11, "人1", 12);
+
+    private static List<String> futures = Arrays.asList("人", "钋", "汉", "人1");
+
 
     public static Map<String, List> groupByAlph(Iterator iterator) throws NoSuchFieldException, IllegalAccessException {
 
@@ -22,7 +24,7 @@ public class RescursiveTest {
             String ele = String.valueOf(next);
             if (futures.contains(ele)) {
                 Set<String> keys = resultMap.keySet();
-                if (!keys.contains(keys)) {
+                if (!keys.contains(ele)) {
                     resultMap.put(ele, new ArrayList());
                 }
             } else {
