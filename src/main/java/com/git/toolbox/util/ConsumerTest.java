@@ -20,7 +20,7 @@ public class ConsumerTest {
 
         // 拼接请求参数requestParams...
         Map<String, Integer> map = new HashMap<>();
-        map.put("a", 1);
+        map.put("a", 1); // 使用IDEA的shift crtl alt + p 可以将改行代码function化！！以后不用再去找Function接口了！
         map.put("b", 2);
 
         consumer.accept(map);
