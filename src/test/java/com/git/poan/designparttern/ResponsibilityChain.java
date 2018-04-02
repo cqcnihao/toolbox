@@ -23,17 +23,20 @@ public enum ResponsibilityChain {
         public void dose() {
             System.out.println("我要说 @！#￥%……&*； 然后接下来有请下一位");
         }
-    },
+    },;
 
-    ;
+    public void speak() {
+        System.out.println("有请：" + this.name());
+        dose();
+    }
 
-    public abstract void dose() ;
+    protected abstract void dose();
 
 
     public static void main(String[] args) {
         ResponsibilityChain[] chains = ResponsibilityChain.values();
         for (ResponsibilityChain chain : chains) {
-            chain.dose();
+            chain.speak();
         }
     }
 }
